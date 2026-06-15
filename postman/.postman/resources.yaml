@@ -1,0 +1,15 @@
+# Use this workspace to collaborate
+workspace:
+  id: cba4e8e4-b020-4b08-87bb-7a9ab162afc5
+
+dependencies:
+  collections:
+    16197535-298e1ff4-1033-4f9e-bdee-43d4c45abe0b:
+      name: Imoprt raw text (Curl)
+      path: ..\postman\.dependencies\collections\Imoprt raw text (Curl)
+
+# All resources in the `postman/` folder are automatically registered in Local View.
+# Point to additional files outside the `postman/` folder to register them individually. Example:
+#localResources:
+#  collections:
+#    - ../tests/E2E Test Collection/

@@ -14,11 +14,13 @@ export const ApplicationProvider = ({ children }) => {
     headers: { Authorization: `Bearer ${user?.token}` }
   });
 
+  const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+
   const fetchApplications = useCallback(async (statusFilter = '', sortOption = '') => {
     if (!user) return;
     setLoading(true);
     try {
-      let url = 'http://localhost:5000/api/applications';
+      let url = `${API_URL}/api/applications`;
       const params = new URLSearchParams();
       if (statusFilter) params.append('status', statusFilter);
       if (sortOption) params.append('sort', sortOption);
@@ -36,7 +38,7 @@ export const ApplicationProvider = ({ children }) => {
   const fetchStats = useCallback(async () => {
     if (!user) return;
     try {
-      const { data } = await axios.get('http://localhost:5000/api/applications/stats/summary', getAuthConfig());
+      const { data } = await axios.get(`${API_URL}/api/applications/stats/summary`, getAuthConfig());
       setStats(data);
     } catch (error) {
       console.error('Failed to fetch stats', error);
@@ -45,7 +47,7 @@ export const ApplicationProvider = ({ children }) => {
 
   const createApplication = async (appData) => {
     try {
-      const { data } = await axios.post('http://localhost:5000/api/applications', appData, getAuthConfig());
+      const { data } = await axios.post(`${API_URL}/api/applications`, appData, getAuthConfig());
       setApplications(prev => [data, ...prev]);
       fetchStats();
       return { success: true };
@@ -56,7 +58,7 @@ export const ApplicationProvider = ({ children }) => {
 
   const updateApplication = async (id, appData) => {
     try {
-      const { data } = await axios.put(`http://localhost:5000/api/applications/${id}`, appData, getAuthConfig());
+      const { data } = await axios.put(`${API_URL}/api/applications/${id}`, appData, getAuthConfig());
       setApplications(prev => prev.map(app => app._id === id ? data : app));
       fetchStats();
       return { success: true };
@@ -67,7 +69,7 @@ export const ApplicationProvider = ({ children }) => {
 
   const deleteApplication = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/applications/${id}`, getAuthConfig());
+      await axios.delete(`${API_URL}/api/applications/${id}`, getAuthConfig());
       setApplications(prev => prev.filter(app => app._id !== id));
       fetchStats();
       return { success: true };
