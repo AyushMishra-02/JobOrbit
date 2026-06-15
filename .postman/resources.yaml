@@ -1,0 +1,7 @@
+# Use this workspace to collaborate
+workspace:
+  id: cba4e8e4-b020-4b08-87bb-7a9ab162afc5
+
+localResources:
+  collections:
+    - ..\JobOrbit_API_Collection.json
